@@ -11,7 +11,7 @@
 ✨**팀 구성**: 다양한 배경을 가진 학생들로 구성된 팀을 모집하여, 각자의 전문성을 바탕으로 역할을 분담. 하드웨어 설계, 소프트웨어 개발, 사용자 인터페이스 디자인 등 각 분야에서 협력.  
 
 # High Level Design
-(프로젝트 아키텍쳐 기술, 전반적인 diagram 으로 설명을 권장)  
+![IMG_1388.jpeg](https://prod-files-secure.s3.us-west-2.amazonaws.com/21377414-d74d-484f-83d4-423005e10354/00f6db4a-623a-401f-b513-fe8d310b50ef/IMG_1388.jpeg)
 
 # Clone code  
 ```
