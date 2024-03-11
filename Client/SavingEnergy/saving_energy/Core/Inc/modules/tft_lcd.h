@@ -31,7 +31,7 @@ void TFT_LCD_Write_Pixel(unsigned short x, unsigned short y, unsigned short colo
 
 void TFT_LCD_Landscape(void);
 
-void TFT_LCD_String(unsigned char x, unsigned char y, unsigned short foreground, unsigned short background, unsigned char* str);
+void TFT_LCD_String(unsigned char x, unsigned char y, unsigned short foreground, unsigned short background, char* str);
 void TFT_LCD_English(unsigned char code);
 void TFT_LCD_English_Pixel(unsigned short xPixel, unsigned short yPixel, unsigned char code);
 

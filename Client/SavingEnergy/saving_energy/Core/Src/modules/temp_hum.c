@@ -6,6 +6,7 @@
  */
 #include "stm32f767xx.h"
 #include "modules/tft_lcd.h"
+#include "common/helper.h"
 
 unsigned short adc1_channel10_result = 0;
 unsigned short adc1_channel12_result = 0;

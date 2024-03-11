@@ -406,7 +406,7 @@ void TFT_LCD_Landscape(void)
 	YcharacterLimit = 30;
 }
 
-void TFT_LCD_String(unsigned char x, unsigned char y, unsigned short foreground, unsigned short background, unsigned char* str)
+void TFT_LCD_String(unsigned char x, unsigned char y, unsigned short foreground, unsigned short background, char* str)
 {
 	unsigned char ch1;
 
