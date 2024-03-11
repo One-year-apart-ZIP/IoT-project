@@ -33,34 +33,34 @@ void TempHum_Init(void)
 	ADC1->SQR1 = 0x00100000;	// REGULAR CHANNEL SEQUENCE LENGTH = 2
 	ADC1->SQR2 = 0x00000000;
 	ADC1->SQR3 = 0x0000018A;	// CH 10 -> 12
+
+	TFT_LCD_Color_screen(0, 0, 320, 240, WHITE);
 }
 
 void TempHum_Start(void)
 {
-	TFT_LCD_Color_screen(WHITE);
-
+	TFT_LCD_Color_screen(6, 4, 100, 100, WHITE);
 
 	ADC1->CR2 |= 0x40000000;
 
 	while(!(ADC1->SR & 0x00000002));
 	adc1_channel10_result = ADC1->DR;
-	float temp2 = ((float)adc1_channel10_result * 175. / 16383.);	// 제일 근접.
 
-	TFT_LCD_String(6, 2, BLACK, WHITE, "temp : ");
-	TFT_LCD_xy(20, 2);
+	float temperature = ((float)adc1_channel10_result / 4095.) * 218.75 - 66.875;
+	TFT_LCD_String(6, 4, BLACK, WHITE, "Temperature");
+	TFT_LCD_xy(7, 8);
 	TFT_LCD_Color(BLACK, WHITE);
-	TFT_LCD_Signed_Float(temp2, 3, 2);
+	TFT_LCD_Signed_Float(temperature, 3, 2);
 
 	ADC1->CR2 |= 0x40000000;
 
 	while(!(ADC1->SR & 0x00000002));
 	adc1_channel12_result = ADC1->DR;
-	float humidity= ((float)adc1_channel12_result * 100. / 16383.);
-
-	TFT_LCD_String(6, 6, BLACK, WHITE, "hum : ");
-	TFT_LCD_xy(20, 6);
+	float humidity = ((float)adc1_channel12_result / 4095.) * 125. - 12.5;
+	TFT_LCD_String(25, 4, BLACK, WHITE, "Humidity");
+	TFT_LCD_xy(25, 8);
 	TFT_LCD_Color(BLACK, WHITE);
-	TFT_LCD_Signed_Decimal(humidity, 1,	2);
+	TFT_LCD_Signed_Float(humidity, 2, 2);
 
-	Delay_ms(250);
+	Delay_ms(2000);
 }

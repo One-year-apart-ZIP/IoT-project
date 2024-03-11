@@ -22,7 +22,7 @@ void TFT_LCD_Init(void);
 void TFT_LCD_Command(unsigned short IR);
 void TFT_LCD_Data(unsigned short DR);
 void TFT_LCD_Write(unsigned short reg, unsigned short value);
-void TFT_LCD_Color_screen(unsigned short color);
+void TFT_LCD_Color_screen(unsigned short start_x, unsigned short start_y, unsigned short width, unsigned short height, unsigned short color);
 void TFT_LCD_GRAM_Set(unsigned short x, unsigned short y);
 
 void TFT_LCD_xy(unsigned char x, unsigned char y);

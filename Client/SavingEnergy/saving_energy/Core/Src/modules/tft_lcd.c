@@ -6,6 +6,7 @@
  */
 
 #include "modules/tft_lcd.h"
+#include "common/helper.h"
 
 unsigned char Xcharacter, Ycharacter;
 unsigned char Xcursor, Ycursor;
@@ -316,16 +317,16 @@ void TFT_LCD_Data(unsigned short DR)
 	GPIOC->ODR = DR;
 	GPIOE->BSRR = 0x00040000;	// RESET WR
 
-//	__NOP();
-//	__NOP();
-//	__NOP();
-//	__NOP();
-//	__NOP();
-//	__NOP();
-//	__NOP();
+	__NOP();
+	__NOP();
+	__NOP();
+	__NOP();
+	__NOP();
+	__NOP();
+	__NOP();
 
 	GPIOE->BSRR = 0x00000004;	// SET WR
-	//	__NOP();
+	__NOP();
 	GPIOE->BSRR = 0x00000008;	// SET CS
 }
 
@@ -335,15 +336,15 @@ void TFT_LCD_Write(unsigned short reg, unsigned short value)
 	TFT_LCD_Data(value);
 }
 
-void TFT_LCD_Color_screen(unsigned short color)
+void TFT_LCD_Color_screen(unsigned short start_x, unsigned short start_y, unsigned short width, unsigned short height, unsigned short color)
 {
 	unsigned short i, j;
 
-	TFT_LCD_GRAM_Set(0, 0);
+	TFT_LCD_GRAM_Set(start_x, start_y);
 
-	for(i = 0; i < 50; ++i)
+	for (i = 0; i < width; ++i)
 	{
-		for(j = 0; j < 320; ++j)
+		for(j = 0; j < height; ++j)
 		{
 			TFT_LCD_Data(color);
 		}
@@ -429,7 +430,6 @@ void TFT_LCD_English(unsigned char code)
 {
 	unsigned char data, x, y;
 	unsigned short pixel[8][16];
-	unsigned short xPos, yPos;
 
 	for(x = 0; x < 8; ++x)
 	{
