@@ -341,7 +341,7 @@ void TFT_LCD_Color_screen(unsigned short color)
 
 	TFT_LCD_GRAM_Set(0, 0);
 
-	for(i = 0; i < 240; ++i)
+	for(i = 0; i < 50; ++i)
 	{
 		for(j = 0; j < 320; ++j)
 		{
