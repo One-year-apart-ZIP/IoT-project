@@ -477,6 +477,35 @@ void TFT_LCD_English(unsigned char code)
 	Xcharacter += 1;
 }
 
+void TFT_LCD_Unsigned_Decimal(unsigned int number, unsigned char zerofill, unsigned char digit)
+{
+	unsigned char zero_flag, character;
+	unsigned int div;
+
+	if((digit == 0) || (digit > 9))
+		return;
+
+	div = 1;
+
+	while(--digit)
+		div *= 10;
+
+	zero_flag = zerofill;
+
+	while(div > 0)
+	{
+		character = number / div;
+		if((character == 0) && (zero_flag == 0) && (div != 1))
+			TFT_LCD_English(character + ' ');
+		else
+		{
+			zero_flag = 1;
+			TFT_LCD_English(character + '0');
+		}
+		number %= div;
+		div /= 10;
+	}
+}
 
 void TFT_LCD_Signed_Decimal(int number, unsigned char zerofill, unsigned char digit)
 {

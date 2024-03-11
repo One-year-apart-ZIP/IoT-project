@@ -48,9 +48,10 @@ void TempHum_Start(void)
 
 	float temperature = ((float)adc1_channel10_result / 4095.) * 218.75 - 66.875;
 	TFT_LCD_String(6, 4, BLACK, WHITE, "Temperature");
-	TFT_LCD_xy(7, 8);
+	TFT_LCD_xy(8, 8);
 	TFT_LCD_Color(BLACK, WHITE);
-	TFT_LCD_Signed_Float(temperature, 3, 2);
+	TFT_LCD_Signed_Float(temperature, 2, 1);
+	TFT_LCD_String(13, 8, BLACK, WHITE, "`C");
 
 	ADC1->CR2 |= 0x40000000;
 
@@ -58,9 +59,10 @@ void TempHum_Start(void)
 	adc1_channel12_result = ADC1->DR;
 	float humidity = ((float)adc1_channel12_result / 4095.) * 125. - 12.5;
 	TFT_LCD_String(25, 4, BLACK, WHITE, "Humidity");
-	TFT_LCD_xy(25, 8);
+	TFT_LCD_xy(27, 8);
 	TFT_LCD_Color(BLACK, WHITE);
-	TFT_LCD_Signed_Float(humidity, 2, 2);
+	TFT_LCD_Unsigned_Decimal((int)humidity, 1, 2);
+	TFT_LCD_String(30, 8, BLACK, WHITE, "%");
 
 	Delay_ms(2000);
 }

@@ -35,6 +35,7 @@ void TFT_LCD_String(unsigned char x, unsigned char y, unsigned short foreground,
 void TFT_LCD_English(unsigned char code);
 void TFT_LCD_English_Pixel(unsigned short xPixel, unsigned short yPixel, unsigned char code);
 
+void TFT_LCD_Unsigned_Decimal(unsigned int number, unsigned char zerofill, unsigned char digit);
 void TFT_LCD_Signed_Decimal(int number, unsigned char zerofill, unsigned char digit);
 void TFT_LCD_Signed_Float(float number, unsigned char integral, unsigned char fractional);
 
