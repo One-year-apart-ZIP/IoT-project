@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import os
 
-path = '/home/yk/openvino_notebooks/datasets/test'
+path = '/home/pi/ai/datasets/test'
 frontal_face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 profile_face_recognizer = cv2.face.LBPHFaceRecognizer_create()
 
@@ -31,14 +31,14 @@ print("\n [INFO] Training frontal faces. Please wait ...")
 frontal_faces, frontal_ids = getImagesAndLabels(path, 'frontal')
 frontal_face_recognizer.train(frontal_faces, np.array(frontal_ids))
 
-frontal_face_recognizer.write('/home/yk/openvino_notebooks/train/frontal_trainer.yml')
+frontal_face_recognizer.write('/home/pi/ai/train/frontal_trainer.yml')
 print("\n [INFO] {0} frontal faces trained.".format(len(np.unique(frontal_ids))))
 
 print("\n [INFO] Training profile faces. Please wait ...")
 profile_faces, profile_ids = getImagesAndLabels(path, 'profile')
 profile_face_recognizer.train(profile_faces, np.array(profile_ids))
 
-profile_face_recognizer.write('/home/yk/openvino_notebooks/train/profile_trainer.yml')
+profile_face_recognizer.write('/home/pi/ai/train/profile_trainer.yml')
 print("\n [INFO] {0} profile faces trained.".format(len(np.unique(profile_ids))))
 
 print("\n [INFO] Exiting Program")
