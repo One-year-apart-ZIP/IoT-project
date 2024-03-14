@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class = "container">
+	<h1>WELCOME TO MY HOME!</h1>
+	<div class = "button-container">
+	        <button class="button button-security" onclick="location.href='{{ url_for('door_security') }}'">Door Security Data</button>
+       	        <button class="button button-energy" onclick="location.href='{{ url_for('energy_management') }}'">Energy Management Data</button>
+	</div>
+</div>
+{% endblock %}
