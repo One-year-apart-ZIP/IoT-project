@@ -17,10 +17,10 @@ int flag_check = 0;		// 비밀번호 입력 완료(터치) 인터럽트 flag
 
 // 비밀번호
 int input_password[4] = {0,0,0,0};	// 입력 받을 비밀번호 배열 초기화
-int password[4] = {2, 2, 2, 2};			// 비밀번호 설정
-int cnt_input = 0;						// 비밀번호 입력 자릿수
-int cnt_wrong = 0;						// 비밀번호 틀린 횟수
-int pwMatch = 1;						// 비밀번호 일치 여부 확인용 변수(일치:1, 불일치:0)
+int password[4] = {2, 2, 2, 2};		// 비밀번호 설정
+int cnt_input = 0;					// 비밀번호 입력 자릿수
+int cnt_wrong = 0;					// 비밀번호 틀린 횟수
+int pwMatch = 1;					// 비밀번호 일치 여부 확인용 변수(일치:1, 불일치:0)
 
 
 // password
@@ -77,9 +77,10 @@ void confirmInputPassword(void){
 				cnt_wrong=0;		// 비밀번호 틀린 횟수 초기화
 				buzzer_X();			// X부저 울림(1.5초)
 				motor_X();			// motor -90도 회전
-				/*주인 얼굴 없으면
-				 log & camera 영상 저장
-				*/
+
+				// 비밀번호 5회 틀렸으니 영상 캡쳐하라고 라즈베리파이(카메라연결)에 데이터 전송
+				USART_Transmit(&huart2, (uint8_t *)"Capture video!", 14);
+				HAL_Delay(1000);	// 안정적인 USART 데이터 전송을 위한 딜레이
 			}
 	}
 
