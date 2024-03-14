@@ -12,6 +12,7 @@
 #include "stm32f7xx_hal.h"			// STM32F7 시리즈의 HAL 드라이버들을 사용하기 위한 헤더 파일
 #include "buzzer.h"
 #include "motor.h"
+#include "USART.h"
 
 // touchpad(start, check) port			  pin 위치
 #define GPIO_check       GPIOA
