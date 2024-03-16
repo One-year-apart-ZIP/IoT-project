@@ -1,0 +1,4 @@
+Date_Format(Now(), '%Y%m%d-%H%i%s')
+
+Insert into Energy_Data (id, curDate, Temp, Hum, Gas)
+Values(seqence, Date_Format(Now(), '%Y%m%d-%H%i%s'), '23.5', '60.1', '0.03');

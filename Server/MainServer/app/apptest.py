@@ -23,4 +23,4 @@ def upload_file():
 		return jsonify({"status": "success", "filename":filename}), 200
 
 if __name__ == '__main__':
-	app.run(host='192.168.137.91', port=5000)
+	app.run(host='192.168.0.59', port=5000)
