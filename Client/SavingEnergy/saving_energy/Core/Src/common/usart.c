@@ -26,7 +26,7 @@ void USART6_init(void)
 
 	RCC->APB2ENR |= 0x00000020;	// USART6 CLK ENABLE
 
-	USART6->CR1 = 0x0000000D;	// SET TE, RE, UE
+	USART6->CR1 = 0x0000002D;	// SET TE, RE, UE, RXENIE
 	USART6->CR2 = 0x00000000;
 	USART6->CR2 = 0x00000000;
 	USART6->BRR = 10000;
@@ -34,6 +34,8 @@ void USART6_init(void)
 	Delay_ms(1);
 
 	RXD = USART6->RDR;
+
+	// NVIC->
 }
 
 unsigned char USART6_receive_character(void)

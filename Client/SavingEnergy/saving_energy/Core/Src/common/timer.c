@@ -18,7 +18,7 @@ void TIM1_UP_TIM10_IRQHandler(void)
 	interrupt_flag = 1;
 	interrupt_count++;
 
-	if ((interrupt_count % 10) == 0)
+	if ((interrupt_count % 100) == 0)
 		led_flag = 1;
 }
 
