@@ -1,9 +1,8 @@
-from flask import render_template, request, redirect, url_for, flash, send_from_directory
+from flask import render_template, request, redirect, url_for, flash, send_from_directory, jsonify, Flask
 from werkzeug.utils import secure_filename
 from datetime import datetime
 from app import app,db
-from app.models import EnergyData
-from flask import jsonify
+from app.models import EnergyData, UploadedFile
 import os
 
 UPLOAD_FOLDER = '/home/pi/IoT_Project/app/uploads'
@@ -24,6 +23,7 @@ def index():
 @app.route('/door_security')
 def door_security():
     files = UploadedFile.query.all()
+    print(files)
     return render_template('door_security.html', files=files)
 
 @app.route('/energy_management')
@@ -77,3 +77,19 @@ def receive_energy_data():
 
     except Exception as e:
         return jsonify({"message": str(e)}), 500
+
+# additional sentence
+@app.route('/api/latest-file', methods=['GET'])
+def get_latest_file():
+    files = os.listdir(UPLOAD_FOLDER)
+
+    if not files:
+        return jsonify({'message' : 'No files found'}), 404
+
+    latest_file = max(files, key=lambda x: os.path.getmtime(os.path.join(UPLOAD_FOLDER, x)))
+
+    latest_file_path = os.path.join(UPLOAD_FOLDER, latest_file)
+
+    latest_file_timestamp = datetime.fromtimestamp(os.path.getmtime(latest_file_path)).strftime('%Y-%m-%d %H:%M:%S')
+
+    return jsonify({'filename' : latest_file, 'timestamp' : latest_file_timestamp})
