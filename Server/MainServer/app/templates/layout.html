@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang ="en">
+<head>
+	<meta charset = "UTF-8">
+	<meta name = "viewport" content = "width = device-width, initial-scale=1.0">
+	<title>{% block title %}{% endblock %} - IoT Data Monitoring</title>
+        <link rel ="stylesheet" href ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3p/77eCGsOIEjwt6o6EQuhDhFY/uiqx4/T4ply4gFf3/a9E3XfmbjT/Vpc" crossorigin="anonymous">
+	<link rel = "stylesheet" href = "{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+	<div class = "header">
+		<div>{{ current_date_time }}</div>
+		<div>one.Zip</div>
+	</div>
+	
+	{% block content %}{% endblock %}
+
+	<div class = "footer">
+		<p> 2024 one.Zip. All rights reserved.</p>
+	</div>
+        <script src ="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src ="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.9/dist/umd/popper.min.js" integrity="sha384-eMNl7YzKb3sYYMw5yZJ0FfjRgfl/R3HElA9CeDv+rlS0V2S3nupi4sP/l35uej5l" crossorigin="anonymous"></script>
+        <script src ="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shcZCQ2JF82Mv0Uwep/ZZWyniv8J3X0p2SFFQ" crossorigin="anonymous"></script>
+
+</body>
+</html>

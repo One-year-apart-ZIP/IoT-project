@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h2>Door Security Images</h2>
+<div class="gallery">
+    {% for file in files %}
+    <div class="image">
+        <a href="{{ url_for('uploaded_file', filename=file.filename) }}">
+            <img src="{{ url_for('uploaded_file', filename=file.filename) }}" alt="{{ file.filename }}">
+        </a>
+        <p>Uploaded at {{ file.timestamp }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+<script>
+function fetchLatestFile() {
+    fetch('/api/latest-file')
+        .then(response => response.json())
+        .then(data => {
+            if (data.filename) {
+                const imageUrl = `/uploads/${data.filename}`;
+                document.getElementById('latest-image').src = imageUrl;
+                document.getElementById('timestamp').innerText = `Last uploaded: ${data.timestamp}`;
+            }
+        })
+        .catch(error => console.error('Error fetching latest file:', error));
+}
+document.addEventListener('DOMContentLoaded', function() {
+    fetchLatestFile();
+    setInterval(fetchLatestFile, 5000);
+});
+</script>
+
+<img id="latest-image" src="" alt="Latest uploaded image">
+<p id="timestamp"></p>
+
+<div class="text-center">
+    <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Home</a>
+</div>
+
+{% endblock %}
