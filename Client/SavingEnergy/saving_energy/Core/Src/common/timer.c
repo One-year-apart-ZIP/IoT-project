@@ -10,7 +10,7 @@
 
 volatile unsigned char interrupt_flag = 0;
 volatile unsigned int interrupt_count = 0;
-volatile unsigned char led_flag = 0;
+volatile unsigned char adc_flag = 0;
 
 void TIM1_UP_TIM10_IRQHandler(void)
 {
@@ -19,7 +19,7 @@ void TIM1_UP_TIM10_IRQHandler(void)
 	interrupt_count++;
 
 	if ((interrupt_count % 100) == 0)
-		led_flag = 1;
+		adc_flag = 1;
 }
 
 void TIM1_init(void)
