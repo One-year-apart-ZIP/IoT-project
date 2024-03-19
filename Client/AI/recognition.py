@@ -1,6 +1,9 @@
 import cv2
 import time
 import os
+import requests
+
+url = 'http://192.168.0.59:5000/upload'
 
 # Load frontal face recognizer
 frontal_recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -21,6 +24,8 @@ profile_faceCascade = cv2.CascadeClassifier(profile_cascadePath)
 font = cv2.FONT_HERSHEY_SIMPLEX
 
 id = 0
+cnt_f_p = 0
+cnt_p_p = 0
 
 # Mapping of IDs to names for frontal faces
 frontal_id_to_names = ['jeonghwan', 'intruder']
@@ -97,6 +102,11 @@ while True:
                 vidoe_filename = f"/home/pi/ai/intruder_rec/intruder_frontal_{int(record_start_time)}.avi"
                 video_writer = cv2.VideoWriter(vidoe_filename, cv2.VideoWriter_fourcc(*'XVID'), 20, (640, 480))
 
+            if cnt_f_p == 0:
+                files = {'file': open(image_filename, 'rb')}
+                response = requests.post(url, files=files)
+                cnt_f_p = 1
+
         if video_writer is not None:
             video_writer.write(img)
 
@@ -124,6 +134,11 @@ while True:
                 record_start_time = time.time()
                 vidoe_filename = f"/home/pi/ai/intruder_rec/intruder_profile_{int(record_start_time)}.avi"
                 video_writer = cv2.VideoWriter(vidoe_filename, cv2.VideoWriter_fourcc(*'XVID'), 20, (640, 480))
+
+            if cnt_p_p == 0:                
+                files = {'file': open(image_filename, 'rb')}
+                response = requests.post(url, files=files)
+                cnt_p_p = 1
 
         if video_writer is not None:
             video_writer.write(img)
