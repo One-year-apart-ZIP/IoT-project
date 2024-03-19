@@ -5,6 +5,7 @@
  *      Author: hojoon
  */
 #include "stm32f767xx.h"
+
 #include "modules/tft_lcd.h"
 #include "modules/buzzer.h"
 
@@ -80,7 +81,7 @@ void TempHum_Start(void)
 	adc1_channel13_result = ADC1->DR;
 
 	unsigned int ppm = adc1_channel13_result;
-	if(ppm > 900)
+	if(ppm > 2000)
 	{
 		Buzzer_Init();
 		Delay_ms(10);
