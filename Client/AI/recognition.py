@@ -1,5 +1,6 @@
 import cv2
 import time
+import os
 
 # Load frontal face recognizer
 frontal_recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -38,12 +39,15 @@ prev_detection_time = 0
 record_start_time = None
 record_duration = 20 # about 30seconds
 video_writer = None
+image_save_dir = '/home/pi/ai/intruder_face'
 
 while True:
     ret, img = cam.read()
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
+    ### 추가
     current_time = time.time()
+    elapsed_time = current_time - prev_detection_time
 
     # Detect frontal faces
     frontal_faces = frontal_faceCascade.detectMultiScale(
@@ -83,16 +87,21 @@ while True:
         cv2.putText(img, str(id), (x + 5, y - 5), font, 1, (255, 255, 255), 2)
         cv2.putText(img, str(confidence_text), (x + 5, y + h - 2), font, 1, (255, 255, 0), 1)
 
-        if id == 'intruder' and record_start_time is None:
-            record_start_time = time.time()
-            vidoe_filename = f"/home/pi/ai/intruder_rec/intruder_{int(record_start_time)}.avi"
-            video_writer = cv2.VideoWriter(vidoe_filename, cv2.VideoWriter_fourcc(*'XVID'), 20, (640, 480))
+        ### 추가
+        if id == 'intruder':
+            image_filename = os.path.join(image_save_dir, f"intruder_face_{int(current_time)}.jpg")
+            cv2.imwrite(image_filename, img)
+
+            if record_start_time is None:
+                record_start_time = time.time()
+                vidoe_filename = f"/home/pi/ai/intruder_rec/intruder_frontal_{int(record_start_time)}.avi"
+                video_writer = cv2.VideoWriter(vidoe_filename, cv2.VideoWriter_fourcc(*'XVID'), 20, (640, 480))
 
         if video_writer is not None:
             video_writer.write(img)
 
     # Draw rectangles and recognize profile faces
-    for (x, y, w, h) in profile_faces:
+    for (x, y, w, h) in profile_faces:                                                                                          
         cv2.rectangle(img, (x, y), (x + w, y + h), (0, 255, 0), 2)
         id, confidence = profile_recognizer.predict(gray[y:y + h, x:x + w])
 
@@ -106,10 +115,15 @@ while True:
         cv2.putText(img, str(id), (x + 5, y - 5), font, 1, (255, 255, 255), 2)
         cv2.putText(img, str(confidence_text), (x + 5, y + h - 2), font, 1, (255, 255, 0), 1)
 
-        if id == 'intruder' and record_start_time is None:
-            record_start_time = time.time()
-            vidoe_filename = f"/home/pi/ai/intruder_rec/intruder_{int(record_start_time)}.avi"
-            video_writer = cv2.VideoWriter(vidoe_filename, cv2.VideoWriter_fourcc(*'XVID'), 20, (640, 480))
+        ### 추가
+        if id == 'intruder':
+            image_filename = os.path.join(image_save_dir, f"intruder_face_{int(current_time)}.jpg")
+            cv2.imwrite(image_filename, img)
+
+            if record_start_time is None:
+                record_start_time = time.time()
+                vidoe_filename = f"/home/pi/ai/intruder_rec/intruder_profile_{int(record_start_time)}.avi"
+                video_writer = cv2.VideoWriter(vidoe_filename, cv2.VideoWriter_fourcc(*'XVID'), 20, (640, 480))
 
         if video_writer is not None:
             video_writer.write(img)
@@ -119,6 +133,7 @@ while True:
     if k == 27:
         break
 
+### 추가
 if video_writer is not None:
     video_writer.release()
 
