@@ -5,11 +5,14 @@
  *      Author: hojoon
  */
 #include "stm32f767xx.h"
+#include <stdio.h>
 
 #include "modules/tft_lcd.h"
 #include "modules/buzzer.h"
+#include "modules/led.h"
 
 #include "common/helper.h"
+#include "common/usart.h"
 
 unsigned short adc1_channel10_result = 0;
 unsigned short adc1_channel12_result = 0;
@@ -17,7 +20,6 @@ unsigned short adc1_channel13_result = 0;
 
 void TempHum_Init(void)
 {
-	TFT_LCD_Pin_Init();
 	TFT_LCD_Init();
 
 	// PC0 - ADC1_IN10
@@ -55,24 +57,32 @@ void TempHum_Start(void)
 	while(!(ADC1->SR & 0x00000002));
 	adc1_channel10_result = ADC1->DR;
 
-	float temperature = ((float)adc1_channel10_result / 4095.) * 218.75 - 66.875;
-	TFT_LCD_String(6, 4, BLACK, WHITE, "Temperature");
-	TFT_LCD_xy(8, 8);
-	TFT_LCD_Color(BLACK, WHITE);
-	TFT_LCD_Signed_Float(temperature, 2, 1);
-	TFT_LCD_String(13, 8, BLACK, WHITE, "`C");
+	float temperature = ((float)adc1_channel10_result * 217.75 / 4095.) - 66.875;
+	TFT_LCD_String(4, 6, BLACK, WHITE, "Temperature");
+	TFT_LCD_xy(17, 6);
+	if(temperature > 30.)
+		TFT_LCD_Color(RED, WHITE);
+	else
+		TFT_LCD_Color(BLACK, WHITE);
+
+	TFT_LCD_Signed_Decimal((int)temperature, 1, 2);
+	TFT_LCD_String(20, 6, BLACK, WHITE, "`C");
 
 	// HUMIDITY
 	ADC1->CR2 |= 0x40000000;
 
 	while(!(ADC1->SR & 0x00000002));
 	adc1_channel12_result = ADC1->DR;
-	float humidity = ((float)adc1_channel12_result / 4095.) * 125. - 12.5;
-	TFT_LCD_String(25, 4, BLACK, WHITE, "Humidity");
-	TFT_LCD_xy(27, 8);
-	TFT_LCD_Color(BLACK, WHITE);
-	TFT_LCD_Unsigned_Decimal((int)humidity, 1, 2);
-	TFT_LCD_String(30, 8, BLACK, WHITE, "%");
+	float humidity = ((float)adc1_channel12_result *100. / 4095.);
+	TFT_LCD_String(4, 20, BLACK, WHITE, "Humidity");
+	TFT_LCD_xy(17, 20);
+	if(humidity > 70.)
+		TFT_LCD_Color(BLUE, WHITE);
+	else
+		TFT_LCD_Color(BLACK, WHITE);
+
+	TFT_LCD_Signed_Decimal((int)humidity, 1, 2);
+	TFT_LCD_String(20, 20, BLACK, WHITE, "%");
 
 	// GAS SENSOR
 	ADC1->CR2 |= 0x40000000;
@@ -89,5 +99,12 @@ void TempHum_Start(void)
 		Buzzer_Stop(100);
 	}
 
-	Delay_ms(500);
+	char buffer[70];
+	sprintf(buffer,
+			"{\"Temp\":%d,\"Hum\":%d,\"Gas\":%d,\"ac\":%d,\"bo\":%d,\"hu\":%d}",
+			(int)temperature, (int)humidity, ppm, air_conditional_state, humidifier_state, boiler_state);
+
+	USART6_string(buffer, sizeof(buffer));
+
+	Delay_ms(300);
 }

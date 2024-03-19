@@ -5,11 +5,14 @@
  *      Author: hojoon
  */
 
-#include "usart.h"
 #include "stm32f767xx.h"
-#include "helper.h"
+
+#include "common/usart.h"
+#include "common/helper.h"
 
 volatile unsigned char RXD;
+volatile unsigned char command;
+volatile unsigned char rx_flag;
 
 void USART6_IRQHandler(void)
 {
@@ -19,10 +22,7 @@ void USART6_IRQHandler(void)
 
 		if ((RXD >= 0x20) && (RXD <= 0x7F))
 		{
-			GPIOB->ODR = 0x00000080;
-			Delay_ms(500);
-			GPIOB->ODR = 0x00000000;
-			Delay_ms(300);
+			command = RXD;
 		}
 	}
 }
@@ -63,6 +63,8 @@ void USART6_string(unsigned char* string, unsigned int size)
 	unsigned int i = 0;
 	for(i = 0; i < size; ++i)
 	{
+		if(string[i] == '\0')
+			break;
 		USART6_char(string[i]);
 	}
 }

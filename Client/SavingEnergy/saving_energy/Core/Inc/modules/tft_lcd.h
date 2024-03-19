@@ -17,7 +17,6 @@
 #define WHITE 0xFFFF
 #define BLACK 0x0000
 
-void TFT_LCD_Pin_Init(void);
 void TFT_LCD_Init(void);
 void TFT_LCD_Command(unsigned short IR);
 void TFT_LCD_Data(unsigned short DR);

@@ -8,6 +8,16 @@
 #ifndef INC_COMMON_USART_H_
 #define INC_COMMON_USART_H_
 
+#define AIR_CONDITIONAL_ON	0
+#define AIR_CONDITIONAL_OFF	1
+#define HUMIDIFIER_ON		2
+#define HUMIDIFIER_OFF		3
+#define BOILER_ON			4
+#define BOILER_OFF			5
+
+extern volatile unsigned char command;
+extern volatile unsigned char rx_flag;
+
 void USART6_IRQHandler(void);
 void USART6_init(void);
 void USART6_char(unsigned char data);
