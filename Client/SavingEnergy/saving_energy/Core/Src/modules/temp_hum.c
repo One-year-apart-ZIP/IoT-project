@@ -101,6 +101,12 @@ void TempHum_Start(void)
 		Buzzer_Stop(100);
 	}
 
+	if(temperature > 30.) { LED_on(AIR_CONDITIONAL); }
+	else if(temperature < 24.) { LED_off(AIR_CONDITIONAL); }
+
+	if(humidity > 80) { LED_on(HUMIDIFIER); }
+	else if(humidity < 60) { LED_off(HUMIDIFIER); }
+
 	sprintf(buffer, JSON_FORMAT,
 			(int)temperature, (int)humidity, ppm, air_conditional_state, humidifier_state, boiler_state);
 
