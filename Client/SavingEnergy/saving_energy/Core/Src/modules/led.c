@@ -14,10 +14,10 @@ volatile unsigned char boiler_state = OFF;
 
 void LED_init(void)
 {
+	// PB0, PB1, PB2
 	RCC->AHB1ENR |= 0x00000002;
 	GPIOB->MODER &= 0xFFFFFFC0;
 	GPIOB->MODER |= 0x00000015;
-
 	GPIOB->ODR = 0x00000000;
 }
 

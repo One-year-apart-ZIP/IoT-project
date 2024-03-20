@@ -22,6 +22,7 @@ void USART6_IRQHandler(void)
 
 		if ((RXD >= 0x20) && (RXD <= 0x7F))
 		{
+			rx_flag = 1;
 			command = RXD;
 		}
 	}
@@ -43,7 +44,10 @@ void USART6_init(void)
 	USART6->CR1 |= USART_CR1_RE | USART_CR1_TE | USART_CR1_UE;
 	USART6->CR1 |= USART_CR1_RXNEIE;
 	USART6->CR2 = 0x00000000;
-	USART6->BRR = 10000;
+	USART6->CR3 = 0x00000000;
+	USART6->BRR = 2813;
+
+	Delay_ms(1);
 
 	RXD = USART6->RDR;
 
@@ -58,7 +62,7 @@ void USART6_char(unsigned char data)
 	USART6->TDR = data;
 }
 
-void USART6_string(unsigned char* string, unsigned int size)
+void USART6_string(char* string, unsigned int size)
 {
 	unsigned int i = 0;
 	for(i = 0; i < size; ++i)

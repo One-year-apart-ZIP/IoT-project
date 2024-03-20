@@ -7,11 +7,11 @@
 #include "stm32f767xx.h"
 #include <stdio.h>
 
+#include "modules/temp_hum.h"
 #include "modules/tft_lcd.h"
 #include "modules/buzzer.h"
 #include "modules/led.h"
 
-#include "common/helper.h"
 #include "common/usart.h"
 
 unsigned short adc1_channel10_result = 0;
@@ -49,6 +49,8 @@ void TempHum_Init(void)
 
 void TempHum_Start(void)
 {
+	char buffer[70];
+
 	TFT_LCD_Color_screen(6, 4, 100, 100, WHITE);
 
 	// TEMPERATURE
@@ -91,7 +93,7 @@ void TempHum_Start(void)
 	adc1_channel13_result = ADC1->DR;
 
 	unsigned int ppm = adc1_channel13_result;
-	if(ppm > 2000)
+	if(ppm > 1500)
 	{
 		Buzzer_Init();
 		Delay_ms(10);
@@ -99,12 +101,8 @@ void TempHum_Start(void)
 		Buzzer_Stop(100);
 	}
 
-	char buffer[70];
-	sprintf(buffer,
-			"{\"Temp\":%d,\"Hum\":%d,\"Gas\":%d,\"ac\":%d,\"bo\":%d,\"hu\":%d}",
+	sprintf(buffer, JSON_FORMAT,
 			(int)temperature, (int)humidity, ppm, air_conditional_state, humidifier_state, boiler_state);
 
 	USART6_string(buffer, sizeof(buffer));
-
-	Delay_ms(300);
 }

@@ -760,7 +760,7 @@ void TFT_LCD_English(unsigned char code) {
   unsigned char data, x, y;
   unsigned short pixel[12][24];
 
-  for (x = 0; x < 12; x++) // read English ASCII font
+  for (x = 0; x < 12; x++)
   {
     data = E_font_large[code][x];
     for (y = 0; y < 8; y++) {
@@ -868,50 +868,5 @@ void TFT_LCD_Signed_Decimal(int number, unsigned char zerofill,
     }
     number %= div;
     div /= 10;
-  }
-}
-
-void TFT_LCD_Signed_Float(float number, unsigned char integral,
-                          unsigned char fractional) {
-  unsigned char zero_flag, digit, character;
-  unsigned int div, integer;
-
-  digit = integral + fractional;
-  if ((integral == 0) || (fractional == 0) || (digit > 9))
-    return;
-
-  // Display sign
-  if (number >= 0)
-    TFT_LCD_English('+');
-  else {
-    TFT_LCD_English('-');
-    number = -number;
-  }
-
-  div = 1;
-
-  while (--digit)
-    div *= 10;
-
-  while (fractional--)
-    number *= 10.;
-  integer = (unsigned int)(number + 0.5);
-
-  zero_flag = 0;
-  digit = 1;
-
-  while (div > 0) {
-    character = integer / div;
-    if ((character == 0) && (zero_flag == 0) && (digit != integral))
-      TFT_LCD_English(character + ' ');
-    else {
-      zero_flag = 1;
-      TFT_LCD_English(character + '0');
-    }
-    integer %= div;
-    div /= 10;
-    if (digit == integral)
-      TFT_LCD_English('.');
-    digit++;
   }
 }

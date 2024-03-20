@@ -13,7 +13,7 @@ void SystemClock_Config(void);
 int main(void)
 {
 	HAL_Init();
-	SystemClock_Config();
+//	SystemClock_Config();
 	MCU_init();
 	LED_init();
 	TIM1_init();
@@ -30,6 +30,7 @@ int main(void)
 
 		if(rx_flag == 1)
 		{
+			rx_flag = 0;
 			switch(command)
 			{
 			case AIR_CONDITIONAL_ON:
@@ -84,7 +85,7 @@ void MCU_init(void)
 	while((RCC->CFGR & 0x0000000C) != 0x00000008);
 	RCC->CR |= 0x00080000;
 
-	RCC->APB2ENR |= 0x00004000;
+	RCC->APB2ENR |= 0x00004020;
 	SYSCFG->CMPCR = 0x00000001;
 
 	RCC->AHB1ENR |= 0x0000001F;
