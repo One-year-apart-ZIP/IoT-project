@@ -9,7 +9,7 @@
 #define INC_COMMON_TIMER_H_
 
 extern volatile unsigned char interrupt_flag;
-extern volatile unsigned char led_flag;
+extern volatile unsigned char adc_flag;
 
 void TIM1_UP_TIM10_IRQHandler(void);
 void TIM1_init(void);
