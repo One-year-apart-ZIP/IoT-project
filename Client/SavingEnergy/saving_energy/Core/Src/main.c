@@ -35,21 +35,27 @@ int main(void)
 			{
 			case AIR_CONDITIONAL_ON:
 				LED_on(AIR_CONDITIONAL);
+				ac_remote_mode = 1;
 				break;
 			case AIR_CONDITIONAL_OFF:
 				LED_off(AIR_CONDITIONAL);
+				ac_remote_mode = 0;
 				break;
 			case HUMIDIFIER_ON:
 				LED_on(HUMIDIFIER);
+				hum_remote_mode = 1;
 				break;
 			case HUMIDIFIER_OFF:
 				LED_off(HUMIDIFIER);
+				hum_remote_mode = 0;
 				break;
 			case BOILER_ON:
 				LED_on(BOILER);
+				boiler_remote_mode = 1;
 				break;
 			case BOILER_OFF:
 				LED_off(BOILER);
+				boiler_remote_mode = 0;
 				break;
 			default:
 				break;

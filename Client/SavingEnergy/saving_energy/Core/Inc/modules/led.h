@@ -19,6 +19,10 @@ extern volatile unsigned char air_conditional_state;
 extern volatile unsigned char humidifier_state;
 extern volatile unsigned char boiler_state;
 
+extern volatile unsigned char ac_remote_mode;
+extern volatile unsigned char hum_remote_mode;
+extern volatile unsigned char boiler_remote_mode;
+
 void LED_init(void);
 void LED_on(unsigned char cmd);
 void LED_off(unsigned char cmd);

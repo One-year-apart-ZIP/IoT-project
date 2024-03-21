@@ -26,16 +26,27 @@ void LED_on(unsigned char cmd)
 	switch(cmd)
 	{
 	case AIR_CONDITIONAL:
-		GPIOB->ODR |= 0x00000001;
-		air_conditional_state = ON;
+		if(air_conditional_state != ON)
+		{
+			GPIOB->ODR |= 0x00000001;
+			air_conditional_state = ON;
+		}
 		break;
 	case HUMIDIFIER:
-		GPIOB->ODR |= 0x00000002;
-		humidifier_state = ON;
+		if(humidifier_state != ON)
+		{
+			GPIOB->ODR |= 0x00000002;
+			humidifier_state = ON;
+		}
+
 		break;
 	case BOILER:
-		GPIOB->ODR |= 0x00000004;
-		boiler_state = ON;
+		if(boiler_state != ON)
+		{
+			GPIOB->ODR |= 0x00000004;
+			boiler_state = ON;
+		}
+
 		break;
 	default:
 		break;
@@ -47,16 +58,25 @@ void LED_off(unsigned char cmd)
 	switch(cmd)
 	{
 	case AIR_CONDITIONAL:
-		GPIOB->ODR &= 0xFFFFFFFE;
-		air_conditional_state = OFF;
+		if(air_conditional_state != OFF)
+		{
+			GPIOB->ODR &= 0xFFFFFFFE;
+			air_conditional_state = OFF;
+		}
 		break;
 	case HUMIDIFIER:
-		GPIOB->ODR &= 0xFFFFFFFD;
-		humidifier_state = OFF;
+		if(humidifier_state != OFF)
+		{
+			GPIOB->ODR &= 0xFFFFFFFD;
+			humidifier_state = OFF;
+		}
 		break;
 	case BOILER:
-		GPIOB->ODR &= 0xFFFFFFFB;
-		boiler_state = OFF;
+		if(boiler_state != OFF)
+		{
+			GPIOB->ODR &= 0xFFFFFFFB;
+			boiler_state = OFF;
+		}
 		break;
 	default:
 		break;
