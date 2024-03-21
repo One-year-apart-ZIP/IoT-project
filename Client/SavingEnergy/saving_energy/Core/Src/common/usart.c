@@ -20,7 +20,7 @@ void USART6_IRQHandler(void)
 	{
 		RXD = USART6->RDR;
 
-		if ((RXD >= 0x20) && (RXD <= 0x7F))
+		if((RXD >= 0x20) && (RXD <= 0x7F))
 		{
 			rx_flag = 1;
 			command = RXD;

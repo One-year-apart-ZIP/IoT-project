@@ -14,9 +14,13 @@
 
 #include "common/usart.h"
 
-unsigned short adc1_channel10_result = 0;
-unsigned short adc1_channel12_result = 0;
-unsigned short adc1_channel13_result = 0;
+volatile unsigned short adc1_channel10_result = 0;
+volatile unsigned short adc1_channel12_result = 0;
+volatile unsigned short adc1_channel13_result = 0;
+
+volatile unsigned char ac_remote_mode = 0;
+volatile unsigned char hum_remote_mode = 0;
+volatile unsigned char boiler_remote_mode = 0;
 
 void TempHum_Init(void)
 {
@@ -101,11 +105,11 @@ void TempHum_Start(void)
 		Buzzer_Stop(100);
 	}
 
-	if(temperature > 30.) { LED_on(AIR_CONDITIONAL); }
-	else if(temperature < 24.) { LED_off(AIR_CONDITIONAL); }
+	if(temperature >= 30. && ac_remote_mode == 0) { LED_on(AIR_CONDITIONAL); }
+	else if(temperature <= 26. && ac_remote_mode == 0) { LED_off(AIR_CONDITIONAL); }
 
-	if(humidity > 80) { LED_on(HUMIDIFIER); }
-	else if(humidity < 60) { LED_off(HUMIDIFIER); }
+	if(humidity >= 80 && hum_remote_mode == 0) { LED_on(HUMIDIFIER); }
+	else if(humidity <= 60 && hum_remote_mode == 0) { LED_off(HUMIDIFIER); }
 
 	sprintf(buffer, JSON_FORMAT,
 			(int)temperature, (int)humidity, ppm, air_conditional_state, humidifier_state, boiler_state);
