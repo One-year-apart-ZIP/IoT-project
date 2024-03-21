@@ -1,6 +1,8 @@
 # IoT Project
-## 시작: 문제 인식과 동기
 
+
+
+## Motivation
 ✨**배경**:
 수업 시간 보게된 스마트홈 관련 영상에서 관심을 가지게 됨.
 현대 사회에서 스마트 홈 기술이 빠르게 발전하고 있음에도 불구하고, 많은 가정에서는 여전히 보안과 환경 관리를 위한 효율적이고 사용자 친화적인 시스템이 부족함.  
@@ -10,10 +12,45 @@
 ✨**아이디어**: 라즈베리 파이와 ATmega128, Cortex -M7 중심으로 보안 및 환경 관리 기능을 통합한 스마트 홈 시스템을 개발하기로 함.  
 ✨**팀 구성**: 다양한 배경을 가진 학생들로 구성된 팀을 모집하여, 각자의 전문성을 바탕으로 역할을 분담. 하드웨어 설계, 소프트웨어 개발, 사용자 인터페이스 디자인 등 각 분야에서 협력.  
 
-# High Level Design
-![IoT_PJ_High Level Design](IoT_Project.jpeg)
 
-# Clone code  
+## Initial Draft
+![init_draft](https://github.com/One-year-apart-ZIP/IoT-project/assets/154479146/958b4e83-a4e8-44cc-b0a7-28a26c3b2f83)
+
+
+
+## Gantt Chart
+
+
+
+## High Level Design
+![HighLevelDesign](https://github.com/One-year-apart-ZIP/IoT-project/assets/154479146/64b1e73c-71cb-4cda-8e63-aec787b66fa9)
+
+
+## Sequential Diagram
+
+
+## Function Structure
+### DOORLOCK
+![functionStructure_doorlock](https://github.com/One-year-apart-ZIP/IoT-project/assets/154479146/d8a26fb8-a79f-4634-9963-dfa7025f983a)
+
+### ENERGY & SAFETY
+![functionStructure_energy](https://github.com/One-year-apart-ZIP/IoT-project/assets/154479146/8e6c76fb-4c84-4ab7-9508-52c8901d6bfe)
+
+
+
+## Cicuit Diagram
+### DOORLOCK
+![CircuitDiagram_doorlock](https://github.com/One-year-apart-ZIP/IoT-project/assets/154479146/9c980376-d8bd-458a-b831-90e7a90d0601)
+
+### ENERGY & SAFETY
+![CircuitDiagram_energy](https://github.com/One-year-apart-ZIP/IoT-project/assets/154479146/35e2f6f6-4bd3-4a2e-a33f-0b0482fdab38)
+
+
+## Presentation Document
+
+
+
+# Clone code
 ```
 git clone https://github.com/One-year-apart-ZIP/IoT-project.git
 ```
