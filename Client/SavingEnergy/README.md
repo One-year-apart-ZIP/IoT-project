@@ -1,4 +1,4 @@
-# IoT-project
+# Saving Energy
 
 ### Table of contents
 1. [Hardware](#hardware)
