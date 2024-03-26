@@ -26,7 +26,7 @@
 
 ### 사진
 
-![adc](./resources/adc_pic.jpg)
+<img src="./resources/adc_pic.jpg" width="400">
 
 ### ADC 초기화
 
@@ -82,7 +82,7 @@
 
 ### 사진
 
-![tft-lcd](./resources/tft-lcd.jpeg)
+<img src="./resources/tft-lcd.jpeg" width="400"/>
 
 ### TFT-LCD 초기화
 
@@ -119,6 +119,7 @@
 
 ### 사진
 
+<img src="./resources/usart_log.png" width="400"/>
 
 ### USART 초기화
 
