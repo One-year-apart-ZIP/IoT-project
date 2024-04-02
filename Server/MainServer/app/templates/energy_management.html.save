@@ -14,39 +14,31 @@
                 <th>Gas</th>
             </tr>
         </thead>
-        <tbody>
-            {% for data in energy_data %}
-            <tr>
-                <td>{{ data.curDate }}</td>
-                <td>{{ data.Temp }}[{{ data.ac }}/{{ data.bo }}]</td>
-                <td>{{ data.Hum }}[{{ data.hu }}]</td>
-                <td>{{ data.Gas }}</td>
-            </tr>
-            {% endfor %}
+        <tbody id = "energy-data-body" >
+   
         </tbody>
     </table>
-    <div class ="device-controls text-center mt-4">
-        <button id ="aircon-on" class ="btn btn-success">Air conditioner-on</button>
-        <button id ="aircon-off" class ="btn btn-danger">Air conditioner-off</button>
-        <button id ="boiler-on" class ="btn btn-success">Bolier-on</button>
-        <button id ="boiler-off" class ="btn btn-danger">Bolier-off</button>
-        <button id ="humidifier-on" class ="btn btn-success">Humidifier-on</button>
-        <button id ="humidifier-off" class ="btn btn-danger">Humidifier-off</button>
+    <div class="device-controls text-center mt-4">
+        <button id="aircon-on" class="btn btn-success">air conditioner-on</button>
+        <button id="aircon-off" class="btn btn-danger">air conditioner-off</button>
+        <button id="boiler-on" class="btn btn-success">bolier-on</button>
+        <button id="boiler-off" class="btn btn-danger">bolier-off</button>
+        <button id="humidifier-on" class="btn btn-success">humidifier-on</button>
+        <button id="humidifier-off" class="btn btn-danger">humidifier-off</button>
     </div>
-    <div class ="text-center mt-4">
-        <a href ="{{ url_for('index') }}" class ="btn btn-primary">Back to Home</a>
+    <div class="text-center mt-4">
+        <a href="{{ url_for('index') }}" class="btn btn-primary">Back to Home</a>
     </div>
 </div>
-
 
 <script>
 function sendCommand(command) {
     fetch('/control-device', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({command:command})
+        body: `command=${command}`
     })
     .then(response => response.json())
     .then(data => {
@@ -56,7 +48,7 @@ function sendCommand(command) {
             alert('Failed to send command.');
         }
     })
-   <!-- .catch(error => console.error('Error:', error));-->
+    .catch(error => console.error('Error:', error));
 }
 
 document.getElementById('aircon-on').addEventListener('click', () => sendCommand('aircon_on'));
@@ -68,9 +60,10 @@ document.getElementById('humidifier-off').addEventListener('click', () => sendCo
 </script>
 {% endblock %}
 
-<!--<script>
+<script>
 function fetchLatestData() {
     fetch('/api/latest-energy-data')  
+
         .then(response => response.json())
         .then(data => {
             const body = document.getElementById('energy-data-body');
@@ -85,11 +78,12 @@ function fetchLatestData() {
             </tr>`;
             body.innerHTML = row;
         })
-       .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Error:', error));
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     fetchLatestData();
     setInterval(fetchLatestData, 5000);  
 });
-</script>-->
+</script>

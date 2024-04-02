@@ -3,8 +3,8 @@ from datetime import datetime
 
 class UploadedFile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(120), nullable=False)
-    filepath = db.Column(db.String(120), nullable=False)
+    filename = db.Column(db.String(255), nullable=False)
+    filepath = db.Column(db.String(255), nullable=False)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
 
     def __repr__(self):
@@ -16,6 +16,8 @@ class EnergyData(db.Model):
     Temp = db.Column(db.Float, nullable=False)
     Hum = db.Column(db.Float, nullable=False)
     Gas = db.Column(db.Float, nullable=False)
-
+    ac = db.Column(db.Boolean, nullable=False)
+    bo = db.Column(db.Boolean, nullable=False)
+    hu = db.Column(db.Boolean, nullable=False) 
     def __repr__(self):
         return f'<EnergyData {self.id}>'
