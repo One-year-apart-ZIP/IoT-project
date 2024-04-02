@@ -4,6 +4,15 @@
 <h2>Door Security Images</h2>
 <div class="gallery">
     {% for file in files %}
+    <div>
+        <span>{{ file.filename }}</span>
+        <form action ="{{ url_for('delete_file', filename =file.filename) }}" method ="post">
+            <button type ="submit">Delete</button>
+        </form>
+	<form action="{{ url_for('delete_all_photos_route') }}" method="post" onsubmit="return confirmDelete()">
+            <button type="submit">Delete all</button>
+        </form>
+    </div>
     <div class="image">
         <a href="{{ url_for('uploaded_file', filename=file.filename) }}">
             <img src="{{ url_for('uploaded_file', filename=file.filename) }}" alt="{{ file.filename }}">
@@ -30,6 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchLatestFile();
     setInterval(fetchLatestFile, 5000);
 });
+
+function confirmDelete() {
+    return confirm("Really delete all the files? This task cannot be returned.");
+}
+
 </script>
 
 <img id="latest-image" src="" alt="Latest uploaded image">
