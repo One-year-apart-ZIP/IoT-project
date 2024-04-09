@@ -32,14 +32,14 @@
 
 ## Motor
 ### Timer 사용하여 motor PWM(Pulse Width Modulation) 생성 (CubeIDE 함수 사용)
-```
+```C
 /*  HAL(Hardware Abstraction Layer) functions related to timers in the STM32F7 series  */
 #include "stm32f7xx_hal_tim.h"
 
 /* define Handler structure managing Motor Timer */
 extern TIM_HandleTypeDef htim5;	
 ```
-```
+```C
 /* Timer Init */
 void MX_TIM5_Init(void){
   TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -83,7 +83,7 @@ HAL (Hardware Abstraction Layer) 라이브러리에서 사용되며,
  	- State: 타이머의 현재 상태를 나타낸다.
 
 ### motor 동작 함수
-```
+```C
 /* right password motor(+90 -> +0) */
 void motor_O(void){
 	HAL_TIM_PWM_Start(&htim5, TIM_CHANNEL_1);
@@ -99,7 +99,7 @@ void motor_O(void){
 ## Touchpad
 ### External Interrupt (CubeIDE 함수 사용)
 - start touchpad(PA3), check touchpad(PA4) 예시
-```
+```C
 static void MX_GPIO_Init(void)
 {
   /*Configure GPIO pins : PA3 PA4 */
@@ -116,14 +116,14 @@ static void MX_GPIO_Init(void)
   HAL_NVIC_EnableIRQ(EXTI4_IRQn);
 }
   ```
-```		  
+```C		  
 // touchpad(start, check) port define	
 #define GPIO_check       GPIOA
 #define GPIO_start_pin   GPIO_PIN_3 
 #define GPIO_check_pin   GPIO_PIN_4
 ```
 ### External Interrupt Callback Function (CubeIDE 함수 사용)
-```
+```C
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_PIN){ 
 	if (GPIO_PIN == GPIO_start_pin)
      	doorlock_status = PREPARE_INPUT;		    // start touch
@@ -139,13 +139,13 @@ GPIO_PIN은 인터럽트가 발생한 GPIO 핀을 식별하는데 사용됨
 
 ## RaspberryPi와 MCU의 USART 통신
 ### USART Init  (CubeIDE 함수 사용)
-```
+```C
 /*  HAL(Hardware Abstraction Layer) functions related to timers in the STM32F7 series */
 #include "stm32f7xx_hal_uart.h"
 
 UART_HandleTypeDef huart2;       // USART_B handler
 ```
-```
+```C
 /* USART_B init */
 void MX_USART2_UART_Init(void)
 {
@@ -166,7 +166,7 @@ void MX_USART2_UART_Init(void)
 }
 ```
 ### USART TX 동작
-```
+```C
 /* Data Transmit(TX) */
 HAL_USART_Transmit(&huart2, &data, size, HAL_MAX_DELAY);
 ```
